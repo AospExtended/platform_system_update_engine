@@ -84,27 +84,40 @@ class SideloadDaemonState : public DaemonStateInterface,
                               status == UpdateStatus::VERIFYING || status == UpdateStatus::FINALIZING)) {
       // Split the progress bar in two parts for the two stages DOWNLOADING and
       // FINALIZING.
+      ReportStatus(base::StringPrintf("ui_print **************************************************"));
+      ReportStatus(base::StringPrintf("ui_print **              .--.                            **"));
+      ReportStatus(base::StringPrintf("ui_print **             : .; :                           **"));
+      ReportStatus(base::StringPrintf("ui_print **             :    : .--.  .--. .---.          **"));
+      ReportStatus(base::StringPrintf("ui_print **             : :: :' .; :`._-.': .; `         **"));
+      ReportStatus(base::StringPrintf("ui_print **             :_;:_;`.__.'`.__.': ._.'         **"));
+      ReportStatus(base::StringPrintf("ui_print **                               : :            **"));
+      ReportStatus(base::StringPrintf("ui_print **                               :_;            **"));
+      ReportStatus(base::StringPrintf("ui_print ** .--.        .-.               .-.         .-.**"));
+      ReportStatus(base::StringPrintf("ui_print **: .--'      .' `.              : :         : :**"));
+      ReportStatus(base::StringPrintf("ui_print **: `;  .-.,-.`. .'.--. ,-.,-. .-' : .--.  .-' :**"));
+      ReportStatus(base::StringPrintf("ui_print **: :__ `.  .' : :' '_.': ,. :' .; :' '_.'' .; :**"));
+      ReportStatus(base::StringPrintf("ui_print **`.__.':_,._; :_;`.__.':_;:_;`.__.'`.__.'`.__.'**"));
+      ReportStatus(base::StringPrintf("ui_print **************************************************"));
+      ReportStatus(base::StringPrintf("ui_print *                   By:-TeamAEX                  *"));
+      ReportStatus(base::StringPrintf("ui_print **************************************************"));
+      ReportStatus(base::StringPrintf("ui_print =================================================="));
+      ReportStatus(base::StringPrintf("ui_print                Flashing AospExtended              "));
+      ReportStatus(base::StringPrintf("ui_print =================================================="));
       ReportStatus(base::StringPrintf(
           "ui_print Step %d/3", status == UpdateStatus::DOWNLOADING ? 1 : 2));
       ReportStatus(base::StringPrintf("progress 0.3 0"));
     }
 
-    if (status_ != status || fabs(progress - progress_) > 0.005) {
-      ReportStatus(base::StringPrintf("set_progress %.lf", progress));
-    }
-
-    if (status_ != status && (status == UpdateStatus::DOWNLOADING ||
-                              status == UpdateStatus::VERIFYING || status == UpdateStatus::FINALIZING)) {
+    if (status_ != status && (status == UpdateStatus::VERIFYING || status == UpdateStatus::FINALIZING)) {
       // Split the progress bar in two parts for the two stages DOWNLOADING and
       // FINALIZING.
+      ReportStatus(base::StringPrintf("ui_print =================================================="));
+      ReportStatus(base::StringPrintf("ui_print                   Finalizing...                   "));
+      ReportStatus(base::StringPrintf("ui_print =================================================="));
       ReportStatus(base::StringPrintf(
-          "ui_print Step %d/3", status == UpdateStatus::VERIFYING ? 2 : 3));
+           "ui_print Step %d/3", status == UpdateStatus::VERIFYING ? 2 : 3));
       ReportStatus(base::StringPrintf("progress 0.6 0"));
      }
-
-    if (status_ != status || fabs(progress - progress_) > 0.005) {
-      ReportStatus(base::StringPrintf("set_progress %.lf", progress));
-    }
 
     progress_ = progress;
     status_ = status;
